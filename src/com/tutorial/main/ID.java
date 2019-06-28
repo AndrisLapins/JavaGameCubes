@@ -5,6 +5,7 @@ public enum ID {
 	// Player2(),
 	Trail(),
 	BasicEnemy(),
-	FastEnemy();
+	FastEnemy(),
+	SmartEnemy();
 	
 }
