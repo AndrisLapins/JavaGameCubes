@@ -30,10 +30,10 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.object.get(i);
 			// key events for player 1
 			if(tempObject.getId() == ID.Player) {
-				if(key == KeyEvent.VK_W) { tempObject.setVelY(-5); keyDown[0]=true; }
-				if(key == KeyEvent.VK_S) { tempObject.setVelY(5); keyDown[1]=true; }
-				if(key == KeyEvent.VK_A) { tempObject.setVelX(-5); keyDown[2]=true; }
-				if(key == KeyEvent.VK_D) { tempObject.setVelX(5); keyDown[3]=true; }
+				if(key == KeyEvent.VK_W) { tempObject.setVelY(-handler.spd); keyDown[0]=true; }
+				if(key == KeyEvent.VK_S) { tempObject.setVelY(handler.spd); keyDown[1]=true; }
+				if(key == KeyEvent.VK_A) { tempObject.setVelX(-handler.spd); keyDown[2]=true; }
+				if(key == KeyEvent.VK_D) { tempObject.setVelX(handler.spd); keyDown[3]=true; }
 			}
 			/* key events for player 2
 			if(tempObject.getId() == ID.Player2) {
@@ -52,6 +52,11 @@ public class KeyInput extends KeyAdapter{
 			}
 		}
 		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		
+		if(key == KeyEvent.VK_SPACE) {
+			if(Game.gameState == STATE.Game) Game.gameState = STATE.Shop;
+			else if (Game.gameState == STATE.Shop) Game.gameState = STATE.Game;
+		}
 	}
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();

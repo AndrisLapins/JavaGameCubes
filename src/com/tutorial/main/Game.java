@@ -31,11 +31,13 @@ public class Game extends Canvas implements Runnable{
 	private Audio musicObject;
 	// private BufferedImage img;
 	private Graphics g;
+	private Shop shop;
 	
 	public enum STATE {
 		Menu,
 		Select,
 		Help,
+		Shop,
 		Game,
 		End
 	};
@@ -54,9 +56,11 @@ public class Game extends Canvas implements Runnable{
 		
 		handler = new Handler();
 		hud = new HUD();
+		shop = new Shop(handler, hud);
 		menu = new Menu(this, handler, hud);
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
+		this.addMouseListener(shop);
 		
 		//AudioPlayer.load();
 		String filepath = "ChillingMusic.wav";
@@ -164,8 +168,6 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		handler.render(g);
-		
 		if(paused) {
 			g.setColor(Color.white);
 			g.drawString("PAUSED", 100, 100);
@@ -173,8 +175,12 @@ public class Game extends Canvas implements Runnable{
 		
 		if(gameState == STATE.Game) {
 			hud.render(g);
+			handler.render(g);
+		} else if (gameState == STATE.Shop) {
+			shop.render(g);
 		} else if (gameState == STATE.Menu || gameState == STATE.Help|| gameState == STATE.End || gameState == STATE.Select) {
 			menu.render(g);
+			handler.render(g);
 		}
 		
 		g.dispose();
